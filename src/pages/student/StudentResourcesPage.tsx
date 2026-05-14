@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Search, FileText, Video, ExternalLink, Loader2, BookOpen, Lock } from 'lucide-react';
 import { db } from '../../firebase';
 import { collection, onSnapshot, query } from 'firebase/firestore';
@@ -128,26 +127,10 @@ const StudentResourcesPage = () => {
         }
     };
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-        }
-    };
 
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: { y: 0, opacity: 1 }
-    };
 
     return (
-        <motion.div
-            className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
+        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-800">Study Resources</h1>
@@ -156,7 +139,7 @@ const StudentResourcesPage = () => {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-4 bg-white p-4 rounded-md border border-slate-200 shadow-sm">
                 <div className="relative flex-1">
                     <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                     <input
@@ -164,7 +147,7 @@ const StudentResourcesPage = () => {
                         placeholder="Search topics, notes..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:border-teal-500"
+                        className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-md focus:outline-none focus:border-teal-500"
                     />
                 </div>
                 <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
@@ -172,8 +155,8 @@ const StudentResourcesPage = () => {
                         <button
                             key={cat}
                             onClick={() => setSelectedCategory(cat)}
-                            className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-colors ${selectedCategory === cat
-                                ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/20'
+                            className={`px-4 py-2 rounded-md text-sm font-semibold whitespace-nowrap transition-colors ${selectedCategory === cat
+                                ? 'bg-teal-600 text-white'
                                 : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
                                 }`}
                         >
@@ -203,17 +186,16 @@ const StudentResourcesPage = () => {
                         const price = resource.price || 0;
 
                         return (
-                            <motion.div
+                            <div
                                 key={resource.id}
-                                variants={itemVariants}
-                                className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden flex flex-col"
+                                className="bg-white rounded-md p-6 border border-slate-200 shadow-sm hover:border-teal-400 transition-all group relative overflow-hidden flex flex-col"
                             >
                                 <div className={`absolute top-0 right-0 px-3 py-1 bg-${isUnlocked ? 'green' : 'amber'}-100 text-${isUnlocked ? 'green' : 'amber'}-700 text-xs font-bold rounded-bl-xl`}>
                                     {resource.isFree ? 'FREE' : isUnlocked ? 'ACTIVE' : `₹${price}`}
                                 </div>
 
                                 <div className="flex items-start gap-4 mb-4">
-                                    <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-teal-50 transition-colors">
+                                    <div className="p-3 bg-slate-50 rounded-md group-hover:bg-teal-50 transition-colors">
                                         {getIcon(resource.type)}
                                     </div>
                                     <div>
@@ -232,7 +214,7 @@ const StudentResourcesPage = () => {
                                             href={resource.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-full flex items-center justify-center gap-2 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all group-hover:shadow-lg group-hover:shadow-teal-500/20"
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-slate-900 text-white font-bold rounded-md hover:bg-slate-800 transition-all"
                                         >
                                             {resource.type === 'video' ? 'Watch Video' : resource.type === 'pdf' ? 'Open PDF' : 'Visit Link'}
                                             <ExternalLink size={16} />
@@ -241,19 +223,19 @@ const StudentResourcesPage = () => {
                                         <button
                                             onClick={() => handleBuy(resource)}
                                             disabled={buyingId === resource.id}
-                                            className="w-full flex items-center justify-center gap-2 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all shadow-lg shadow-teal-500/20 disabled:opacity-70"
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 transition-all disabled:opacity-70"
                                         >
                                             {buyingId === resource.id ? <Loader2 className="animate-spin" size={18} /> : <Lock size={18} />}
                                             Unlock Premium
                                         </button>
                                     )}
                                 </div>
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </div>
             )}
-        </motion.div>
+        </div>
     );
 };
 

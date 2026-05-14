@@ -271,8 +271,8 @@ const StudentMarketPage = () => {
         <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-800 tracking-tight">Test Series Market</h1>
-                    <p className="text-slate-500 mt-1 font-medium italic">Hand-picked premium series for your success.</p>
+                    <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Test Series Market</h1>
+                    <p className="text-slate-500 mt-1 font-medium">Hand-picked premium series for your success.</p>
                 </div>
                 <div className="flex flex-col gap-4 w-full lg:w-auto">
                     <div className="flex flex-wrap items-center gap-3">
@@ -288,7 +288,7 @@ const StudentMarketPage = () => {
                                     setSelectedCategory(item.value);
                                     setSelectedSubCategory('All');
                                 }}
-                                className={`px-5 py-3 rounded-full text-sm font-bold transition-all duration-300 ${selectedCategory === item.value ? 'bg-teal-600 text-white shadow-lg shadow-teal-600/20' : 'bg-white text-slate-600 border border-slate-200 hover:border-teal-200 hover:text-teal-600'}`}
+                                className={`px-5 py-3 rounded-md text-sm font-bold transition-all ${selectedCategory === item.value ? 'bg-teal-600 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:border-teal-500'}`}
                             >
                                 {item.label}
                             </button>
@@ -305,7 +305,7 @@ const StudentMarketPage = () => {
                                 <button
                                     key={item.value}
                                     onClick={() => setSelectedSubCategory(item.value)}
-                                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${selectedSubCategory === item.value ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20' : 'bg-white text-slate-600 border border-slate-200 hover:border-teal-200 hover:text-teal-600'}`}
+                                    className={`px-4 py-2 rounded-md text-sm font-semibold transition-all ${selectedSubCategory === item.value ? 'bg-slate-900 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:border-teal-500'}`}
                                 >
                                     {item.label}
                                 </button>
@@ -320,7 +320,7 @@ const StudentMarketPage = () => {
                             placeholder="Find your goal..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-12 pr-6 py-3 border-2 border-slate-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all font-semibold shadow-sm"
+                            className="w-full pl-12 pr-6 py-3 border border-slate-200 rounded-md focus:outline-none focus:border-teal-500 transition-all font-semibold shadow-sm"
                         />
                     </div>
                 </div>
@@ -346,29 +346,25 @@ const StudentMarketPage = () => {
                         const actionButton = isOwned ? (
                             <button
                                 disabled
-                                className="w-full h-16 rounded-3xl bg-emerald-500 text-white font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 cursor-default shadow-xl shadow-emerald-500/20"
+                                className="w-full h-12 rounded-md bg-emerald-500 text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-default"
                             >
-                                <CheckCircle size={20} strokeWidth={3} /> Enrolled & Active
+                                <CheckCircle size={18} /> Enrolled & Active
                             </button>
                         ) : isBuying ? (
                             <button
                                 disabled
-                                className="w-full h-16 rounded-3xl bg-slate-800 text-white font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 cursor-wait"
+                                className="w-full h-12 rounded-md bg-slate-800 text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-3 cursor-wait"
                             >
-                                <Loader2 className="animate-spin" size={20} />
+                                <Loader2 className="animate-spin" size={18} />
                                 {isFree ? 'Enrolling...' : 'Processing...'}
                             </button>
                         ) : (
                             <button
                                 onClick={() => handleBuy(series)}
-                                className="w-full relative group/btn h-16 rounded-3xl bg-slate-900 hover:bg-teal-600 shadow-2xl shadow-slate-900/10 active:scale-[0.98] transition-all duration-500 flex items-center justify-center gap-3 overflow-hidden"
+                                className="w-full h-12 rounded-md bg-slate-900 hover:bg-teal-600 text-white font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                             >
-                                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
-                                <span className="relative z-10 flex items-center justify-center gap-2 text-white font-black text-xs uppercase tracking-[0.2em]">
-                                    {isFree ? 'Enroll for Free' : `Access Now for ₹${series.pricing.amount}`}
-                                    <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform duration-300" />
-                                </span>
-                                <div className="absolute inset-0 bg-linear-to-r from-teal-600 to-teal-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
+                                {isFree ? 'Enroll for Free' : `Access Now for ₹${series.pricing.amount}`}
+                                <ArrowRight size={18} />
                             </button>
                         );
 

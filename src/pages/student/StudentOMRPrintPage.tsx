@@ -133,7 +133,7 @@ const StudentOMRPrintPage = () => {
                 </div>
                 <button
                     onClick={handlePrint}
-                    className="px-6 py-2 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 shadow-lg shadow-teal-500/20 transition-all flex items-center gap-2"
+                    className="px-6 py-2 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 shadow-sm transition-all flex items-center gap-2"
                 >
                     <Printer size={18} />
                     Print OMR Sheet
@@ -154,7 +154,7 @@ const StudentOMRPrintPage = () => {
                 <div className="flex justify-between items-start border-b-2 border-slate-900 pb-6 mb-8">
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-2xl tracking-tighter">Ex</div>
+                            <div className="w-10 h-10 bg-slate-900 rounded-md flex items-center justify-center text-white font-black text-2xl tracking-tighter">Ex</div>
                             <h1 className="text-3xl font-black text-slate-900 tracking-tight">DHItantra</h1>
                         </div>
                         <div className="space-y-1">
@@ -164,7 +164,7 @@ const StudentOMRPrintPage = () => {
                     </div>
 
                     <div className="flex flex-col items-end gap-2">
-                        <div className="border-2 border-slate-900 p-1 rounded-lg bg-white">
+                        <div className="border-2 border-slate-900 p-1 rounded-md bg-white">
                             <QRCodeSVG 
                                 value={`TEST_ID:${testData.id}`} 
                                 size={80} 
@@ -209,7 +209,7 @@ const StudentOMRPrintPage = () => {
                     {omrTemplate.sections.map((section) => (
                         <div key={section.id} className="relative">
                             <div className="flex items-center gap-4 mb-4">
-                                <h3 className="text-sm font-black text-white bg-slate-900 px-3 py-1 rounded tracking-widest uppercase">{section.name}</h3>
+                                <h3 className="text-sm font-black text-white bg-slate-900 px-3 py-1 rounded-md tracking-widest uppercase">{section.name}</h3>
                                 <div className="flex-1 h-[2px] bg-slate-100"></div>
                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Questions {section.questionStartIndex} - {section.questionEndIndex}</span>
                             </div>
@@ -224,7 +224,7 @@ const StudentOMRPrintPage = () => {
                                             {isNumerical ? (
                                                 <div className="flex-1 flex gap-1">
                                                     {[...Array(5)].map((_, idx) => (
-                                                        <div key={idx} className="w-6 h-8 border border-slate-300 rounded text-center leading-8 text-[10px] text-slate-200">
+                                                        <div key={idx} className="w-6 h-8 border border-slate-300 rounded-md text-center leading-8 text-[10px] text-slate-200">
                                                             {idx === 1 ? '.' : ''}
                                                         </div>
                                                     ))}
@@ -250,8 +250,8 @@ const StudentOMRPrintPage = () => {
                 <div className="mt-20 pt-8 border-t border-slate-100 text-center">
                     <p className="text-[10px] font-bold text-slate-400 tracking-[0.3em] uppercase mb-2">Designed by DHItantra Platform</p>
                     <div className="flex justify-center items-center gap-10 grayscale opacity-30">
-                        <div className="w-32 h-10 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-[8px] font-bold">Candidate Signature</div>
-                        <div className="w-32 h-10 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-[8px] font-bold">Invigilator Signature</div>
+                        <div className="w-32 h-10 border-2 border-dashed border-slate-300 rounded-md flex items-center justify-center text-[8px] font-bold">Candidate Signature</div>
+                        <div className="w-32 h-10 border-2 border-dashed border-slate-300 rounded-md flex items-center justify-center text-[8px] font-bold">Invigilator Signature</div>
                     </div>
                 </div>
             </div>

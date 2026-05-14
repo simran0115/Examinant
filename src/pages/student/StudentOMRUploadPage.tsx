@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
     Upload, Camera, Loader2, CheckCircle, AlertCircle,
     ArrowLeft, RefreshCw, Send, Edit3
@@ -226,7 +225,7 @@ const StudentOMRUploadPage = () => {
                 <div className="flex items-center gap-4 mb-8">
                     <button
                         onClick={() => navigate('/dashboard/tests')}
-                        className="p-2 hover:bg-white rounded-xl text-slate-500 transition-all shadow-sm"
+                        className="p-2 hover:bg-white rounded-md text-slate-500 transition-all shadow-sm border border-slate-100"
                     >
                         <ArrowLeft size={20} />
                     </button>
@@ -240,12 +239,8 @@ const StudentOMRUploadPage = () => {
 
                 {/* ── UPLOAD STATE ── */}
                 {stage === 'upload' && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-12 text-center"
-                    >
-                        <div className="w-20 h-20 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div className="bg-white border-2 border-dashed border-slate-200 rounded-md p-12 text-center">
+                        <div className="w-20 h-20 bg-teal-50 text-teal-600 rounded-md flex items-center justify-center mx-auto mb-6">
                             <Upload size={40} />
                         </div>
                         <h2 className="text-xl font-bold text-slate-800 mb-2">Upload Your OMR Sheet</h2>
@@ -259,7 +254,7 @@ const StudentOMRUploadPage = () => {
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <button
                                 onClick={() => fileInputRef.current?.click()}
-                                className="px-8 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all shadow-lg shadow-teal-500/20 flex items-center gap-2"
+                                className="px-8 py-3 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 transition-all flex items-center gap-2"
                             >
                                 <Camera size={20} />
                                 Select Image / PDF
@@ -272,16 +267,12 @@ const StudentOMRUploadPage = () => {
                                 className="hidden"
                             />
                         </div>
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* ── CONVERTING / SCANNING STATES ── */}
                 {(stage === 'converting' || stage === 'scanning') && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-sm"
-                    >
+                    <div className="bg-white rounded-md p-12 text-center border border-slate-200 shadow-sm">
                         <div className="relative w-24 h-24 mx-auto mb-6">
                             <div className="w-24 h-24 rounded-full border-4 border-teal-100 border-t-teal-600 animate-spin" />
                             <div className="absolute inset-0 flex items-center justify-center text-3xl">
@@ -298,30 +289,16 @@ const StudentOMRUploadPage = () => {
                         </p>
 
                         {preview && (
-                            <div className="mt-8 max-w-xs mx-auto rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative">
+                            <div className="mt-8 max-w-xs mx-auto rounded-md overflow-hidden border border-slate-200 shadow-sm relative">
                                 <img src={preview} alt="OMR Preview" className="w-full object-contain max-h-64" />
-                                <AnimatePresence>
-                                    {stage === 'scanning' && (
-                                        <motion.div
-                                            initial={{ top: '0%' }}
-                                            animate={{ top: '100%' }}
-                                            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                                            className="absolute left-0 right-0 h-1 bg-teal-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-                                        />
-                                    )}
-                                </AnimatePresence>
                             </div>
                         )}
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* ── ERROR STATE ── */}
                 {stage === 'error' && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
-                    >
+                    <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                         {preview && (
                             <img src={preview} alt="OMR Preview" className="w-full max-h-64 object-contain bg-slate-50" />
                         )}
@@ -330,12 +307,12 @@ const StudentOMRUploadPage = () => {
                                 <AlertCircle size={28} />
                                 <h3 className="text-lg font-bold">Scanning Failed</h3>
                             </div>
-                            <p className="text-red-700 text-sm mb-6 bg-red-50 p-4 rounded-xl">{error}</p>
+                            <p className="text-red-700 text-sm mb-6 bg-red-50 p-4 rounded-md">{error}</p>
 
                             <div className="flex gap-3">
                                 <button
                                     onClick={reset}
-                                    className="flex-1 py-3 border border-slate-300 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                                    className="flex-1 py-3 border border-slate-300 text-slate-700 font-bold rounded-md hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                                 >
                                     <RefreshCw size={16} />
                                     Upload Different File
@@ -343,7 +320,7 @@ const StudentOMRUploadPage = () => {
                                 {imageBlobRef.current && (
                                     <button
                                         onClick={() => runScan(imageBlobRef.current!)}
-                                        className="flex-1 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all flex items-center justify-center gap-2"
+                                        className="flex-1 py-3 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 transition-all flex items-center justify-center gap-2"
                                     >
                                         <Loader2 size={16} />
                                         Retry Scan
@@ -351,21 +328,17 @@ const StudentOMRUploadPage = () => {
                                 )}
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* ── VERIFY STATE ── */}
                 {stage === 'verify' && testData && scanResult && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-                    >
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Left: Image preview */}
                         <div className="space-y-4">
-                            <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <div className="bg-white p-2 rounded-md shadow-sm border border-slate-200 overflow-hidden">
                                 {preview && (
-                                    <img src={preview} alt="OMR Sheet" className="w-full object-contain max-h-[500px] rounded-xl" />
+                                    <img src={preview} alt="OMR Sheet" className="w-full object-contain max-h-[500px] rounded-md" />
                                 )}
                             </div>
                             <button
@@ -380,7 +353,7 @@ const StudentOMRUploadPage = () => {
                         {/* Right: Results panel */}
                         <div className="space-y-4">
                             {/* Test identified */}
-                            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <div className="bg-white p-5 rounded-md border border-slate-200 shadow-sm">
                                 <div className="flex items-center gap-3 text-green-600 mb-3">
                                     <CheckCircle size={22} />
                                     <h3 className="font-bold">Test Identified ✓</h3>
@@ -403,13 +376,13 @@ const StudentOMRUploadPage = () => {
                             </div>
 
                             {/* Verify answers */}
-                            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1">
+                            <div className="bg-white p-5 rounded-md border border-slate-200 shadow-sm flex-1">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="font-bold text-slate-800 flex items-center gap-2">
                                         <Edit3 size={16} className="text-teal-500" />
                                         Verify &amp; Correct Answers
                                     </h3>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase bg-slate-50 px-2 py-1 rounded-lg">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase bg-slate-50 px-2 py-1 rounded-md">
                                         Tap to change
                                     </span>
                                 </div>
@@ -427,9 +400,9 @@ const StudentOMRUploadPage = () => {
                                                 ).map((qNum) => {
                                                     const ans = scanResult.answers[qNum];
                                                     return (
-                                                        <div
+                                                         <div
                                                             key={qNum}
-                                                            className="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 border border-slate-100"
+                                                            className="flex items-center justify-between px-3 py-2 rounded-md bg-slate-50 border border-slate-100"
                                                         >
                                                             <span className="text-sm font-bold text-slate-500 w-8">
                                                                 Q{qNum}
@@ -462,7 +435,7 @@ const StudentOMRUploadPage = () => {
                             <button
                                 onClick={handleSubmit}
                                 disabled={isSubmitting}
-                                className="w-full py-4 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                                className="w-full py-4 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? (
                                     <>
@@ -477,7 +450,7 @@ const StudentOMRUploadPage = () => {
                                 )}
                             </button>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
             </div>
         </div>

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Timer, ArrowLeft, Send, Loader2, AlertCircle } from 'lucide-react';
 import { db } from '../../firebase';
 import { doc, getDoc, addDoc, collection, serverTimestamp, query, where, documentId, getDocs } from 'firebase/firestore';
@@ -276,15 +275,13 @@ const StudentOMRAttemptPage = () => {
     // ── Instructions Screen ───────────────────────────────────────
     if (showInstructions) {
         return (
-            <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+            <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4">
+                <div
+                    className="bg-white w-full max-w-2xl rounded-md shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
                 >
-                    <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-6 text-white text-center">
+                    <div className="bg-teal-600 p-6 text-white text-center">
                         <div className="flex flex-col items-center gap-2 mb-1">
-                            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-3xl mb-2 backdrop-blur-sm shadow-xl">
+                            <div className="w-16 h-16 bg-white/20 rounded-md flex items-center justify-center text-3xl mb-2 backdrop-blur-sm shadow-xl">
                                 📄
                             </div>
                             <h2 className="text-2xl font-bold">{testData?.name}</h2>
@@ -300,7 +297,7 @@ const StudentOMRAttemptPage = () => {
                                 { label: 'Duration', value: `${testData?.settings?.duration}m`, color: 'text-teal-600', bg: 'bg-teal-50' },
                                 { label: 'Sections', value: sections.length, color: 'text-purple-600', bg: 'bg-purple-50' },
                             ].map(({ label, value, color, bg }) => (
-                                <div key={label} className={`${bg} rounded-xl p-4 text-center`}>
+                                <div key={label} className={`${bg} rounded-md p-4 text-center`}>
                                     <div className={`text-2xl font-extrabold ${color}`}>{value}</div>
                                     <div className="text-xs text-slate-500 mt-1">{label}</div>
                                 </div>
@@ -330,7 +327,7 @@ const StudentOMRAttemptPage = () => {
                         </div>
 
                         {/* OMR Instructions */}
-                        <div className="bg-teal-50 border border-teal-200 rounded-xl p-4">
+                        <div className="bg-teal-50 border border-teal-200 rounded-md p-4">
                             <p className="font-bold text-teal-900 mb-2 text-sm">How to use OMR Mode:</p>
                             <ul className="text-sm text-teal-800 space-y-1.5">
                                 <li>• Click on a bubble (A/B/C/D) to fill it — click again to clear</li>
@@ -342,7 +339,7 @@ const StudentOMRAttemptPage = () => {
                         </div>
 
                         {testData?.settings?.instructions && (
-                            <div className="bg-slate-50 rounded-xl p-4 text-sm text-slate-700">
+                            <div className="bg-slate-50 rounded-md p-4 text-sm text-slate-700">
                                 <p className="font-bold mb-1">Admin Instructions:</p>
                                 <p>{testData?.settings?.instructions}</p>
                             </div>
@@ -350,12 +347,12 @@ const StudentOMRAttemptPage = () => {
 
                         <button
                             onClick={() => setShowInstructions(false)}
-                            className="w-full py-3.5 bg-gradient-to-r from-teal-500 to-teal-500 text-white font-bold rounded-xl hover:from-teal-600 hover:to-teal-600 transition-all shadow-lg shadow-teal-200"
+                            className="w-full py-3.5 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 transition-all"
                         >
                             I Understand — Start OMR Test 📄
                         </button>
                     </div>
-                </motion.div>
+                </div>
             </div>
         );
     }
@@ -372,12 +369,12 @@ const StudentOMRAttemptPage = () => {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={() => { if (window.confirm('Exit OMR Test? Progress will be lost.')) navigate('/dashboard/tests'); }}
-                            className="p-2 hover:bg-teal-50 rounded-lg text-slate-400 hover:text-teal-600 transition-colors"
+                            className="p-2 hover:bg-teal-50 rounded-md text-slate-400 hover:text-teal-600 transition-colors"
                         >
                             <ArrowLeft size={20} />
                         </button>
                         <div>
-                            <p className="text-[10px] font-bold text-teal-600 uppercase tracking-[0.2em]">Live Exam 📄</p>
+                            <p className="text-[10px] font-bold text-teal-600 uppercase tracking-widest">Live Exam 📄</p>
                             <h1 className="text-sm md:text-base font-bold text-slate-800 leading-tight">{testData?.name}</h1>
                         </div>
                     </div>
@@ -403,7 +400,7 @@ const StudentOMRAttemptPage = () => {
                         <button
                             onClick={() => setShowSubmitConfirm(true)}
                             disabled={isSubmitting}
-                            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-md shadow-green-200 text-sm"
+                            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 transition-colors text-sm"
                         >
                             <Send size={15} />
                             <span className="hidden md:inline">Submit</span>
@@ -427,9 +424,9 @@ const StudentOMRAttemptPage = () => {
                                     setActiveSection(sec);
                                     scrollToQuestion(sec.questionStartIndex);
                                 }}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                                className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition-all ${
                                     isActive
-                                        ? `${color.bg} text-white shadow-md`
+                                        ? `${color.bg} text-white`
                                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                 }`}
                             >
@@ -447,7 +444,7 @@ const StudentOMRAttemptPage = () => {
 
                 {/* ── Question Viewer (Left Side) ── */}
                 <div className="w-full xl:w-1/2 flex-shrink-0 border-r border-slate-200 bg-white flex flex-col h-[60vh] xl:h-auto overflow-hidden">
-                    <div className="bg-gradient-to-r from-slate-800 to-slate-900 text-white px-4 py-3 text-xs font-bold flex justify-between items-center z-10 shadow-md">
+                    <div className="bg-slate-800 text-white px-4 py-3 text-xs font-bold flex justify-between items-center z-10 shadow-sm">
                         <div className="flex items-center gap-2">
                              <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse border border-white/20" />
                              <span>QUESTION PAPER VIEW</span>
@@ -475,7 +472,7 @@ const StudentOMRAttemptPage = () => {
                                             {(testData.questionMappings || [])
                                                 .filter(m => m.serialNumber >= sec.questionStartIndex && m.serialNumber <= sec.questionEndIndex)
                                                 .map(m => (
-                                                    <div key={`qtext-${m.serialNumber}`} className={`p-4 rounded-xl border-2 transition-all ${highlightedQ === m.serialNumber ? 'border-teal-400 bg-teal-50 shadow-md' : 'border-slate-100 bg-slate-50'}`} id={`q-text-${m.serialNumber}`}>
+                                                    <div key={`qtext-${m.serialNumber}`} className={`p-4 rounded-md border border-slate-200 transition-all ${highlightedQ === m.serialNumber ? 'border-teal-400 bg-teal-50 shadow-sm' : 'border-slate-100 bg-slate-50'}`} id={`q-text-${m.serialNumber}`}>
                                                         <div className="flex items-start gap-4">
                                                             <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-slate-800 text-white font-bold rounded-lg text-sm">
                                                                 {m.serialNumber}
@@ -510,7 +507,7 @@ const StudentOMRAttemptPage = () => {
                             const opts = OPTION_LABELS.slice(0, sec.optionsPerQuestion);
 
                             return (
-                                <div key={sec.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div key={sec.id} className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                                     {/* Section Header */}
                                     <div className={`${color.bg} px-5 py-3 flex items-center justify-between`}>
                                         <div>
@@ -536,10 +533,10 @@ const StudentOMRAttemptPage = () => {
                                                         <div
                                                             key={qNum}
                                                             ref={el => { questionRefs.current[qNum] = el; }}
-                                                            className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${
-                                                                isHighlighted ? `${color.border} ${color.light} scale-105` :
+                                                            className={`flex items-center gap-3 p-3 rounded-md border border-slate-200 transition-all ${
+                                                                isHighlighted ? `border-teal-500 ${color.light}` :
                                                                 answers[qNum] ? `border-green-300 bg-green-50` :
-                                                                'border-slate-200 bg-slate-50'
+                                                                'border-slate-100 bg-slate-50'
                                                             }`}
                                                         >
                                                             <span className={`text-xs font-extrabold w-8 text-center ${color.text}`}>Q{qNum}</span>
@@ -548,7 +545,7 @@ const StudentOMRAttemptPage = () => {
                                                                 value={answers[qNum] || ''}
                                                                 onChange={e => setAnswers(prev => ({ ...prev, [qNum]: e.target.value }))}
                                                                 placeholder="Value"
-                                                                className="flex-1 px-2 py-1.5 border border-slate-200 rounded-lg text-sm font-mono text-center focus:outline-none focus:border-teal-400 bg-white"
+                                                                className="flex-1 px-2 py-1.5 border border-slate-200 rounded-md text-sm font-mono text-center focus:outline-none focus:border-teal-400 bg-white"
                                                             />
                                                         </div>
                                                     );
@@ -570,12 +567,11 @@ const StudentOMRAttemptPage = () => {
                                                         const isHighlighted = highlightedQ === qNum;
                                                         const answered = answers[qNum];
                                                         return (
-                                                            <motion.div
+                                                            <div
                                                                 key={qNum}
                                                                 ref={el => { questionRefs.current[qNum] = el; }}
-                                                                animate={{ scale: isHighlighted ? 1.02 : 1 }}
-                                                                className={`grid items-center rounded-xl transition-all py-2 px-1 ${
-                                                                    isHighlighted ? `${color.light} border-2 ${color.border}` :
+                                                                className={`grid items-center rounded-md transition-all py-2 px-1 ${
+                                                                    isHighlighted ? `${color.light} border border-${color.border}` :
                                                                     answered ? 'bg-green-50 border border-green-200' :
                                                                     'bg-slate-50 border border-transparent hover:border-slate-200'
                                                                 }`}
@@ -603,7 +599,7 @@ const StudentOMRAttemptPage = () => {
                                                                         </div>
                                                                     );
                                                                 })}
-                                                            </motion.div>
+                                                            </div>
                                                         );
                                                     })}
                                                 </div>
@@ -644,7 +640,7 @@ const StudentOMRAttemptPage = () => {
                                             <button
                                                 key={qNum}
                                                 onClick={() => { setActiveSection(sec); scrollToQuestion(qNum); }}
-                                                className={`w-full aspect-square text-xs font-bold rounded-lg border-2 transition-all ${
+                                                className={`w-full aspect-square text-xs font-bold rounded-md border-2 transition-all ${
                                                     isFilled
                                                         ? `${color.bg} border-transparent text-white`
                                                         : 'border-slate-200 bg-white text-slate-500 hover:border-slate-400'
@@ -662,7 +658,7 @@ const StudentOMRAttemptPage = () => {
                     {/* Final Submit Button */}
                     <button
                         onClick={() => setShowSubmitConfirm(true)}
-                        className="w-full mt-4 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-md shadow-green-200 text-sm"
+                        className="w-full mt-4 py-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 transition-colors shadow-sm text-sm"
                     >
                         Submit OMR Test
                     </button>
@@ -671,17 +667,14 @@ const StudentOMRAttemptPage = () => {
             </div>
 
             {/* ── Submit Confirmation Modal ── */}
-            <AnimatePresence>
+
                 {showSubmitConfirm && (
                     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                        <motion.div
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
-                            className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6"
+                        <div
+                            className="bg-white w-full max-w-md rounded-md shadow-2xl p-6"
                         >
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-teal-100 rounded-md flex items-center justify-center">
                                     <AlertCircle className="text-teal-600" size={24} />
                                 </div>
                                 <div>
@@ -690,7 +683,7 @@ const StudentOMRAttemptPage = () => {
                                 </div>
                             </div>
 
-                            <div className="space-y-2 mb-5 bg-slate-50 rounded-xl p-4">
+                            <div className="space-y-2 mb-5 bg-slate-50 rounded-md p-4">
                                 {[
                                     { label: 'Total Questions', value: totalQ, color: 'text-slate-800' },
                                     { label: 'Answered', value: answeredCount, color: 'text-green-600' },
@@ -706,24 +699,24 @@ const StudentOMRAttemptPage = () => {
                             <div className="flex gap-3">
                                 <button
                                     onClick={() => setShowSubmitConfirm(false)}
-                                    className="flex-1 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-semibold hover:bg-slate-200 transition-colors"
+                                    className="flex-1 py-2.5 bg-slate-100 text-slate-700 rounded-md font-semibold hover:bg-slate-200 transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={() => handleSubmit(false)}
                                     disabled={isSubmitting}
-                                    className="flex-1 py-2.5 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-colors shadow-md disabled:opacity-70"
+                                    className="flex-1 py-2.5 bg-green-600 text-white rounded-md font-bold hover:bg-green-700 transition-colors shadow-sm disabled:opacity-70"
                                 >
                                     {isSubmitting ? (
                                         <span className="flex items-center justify-center gap-2"><Loader2 className="animate-spin" size={16} /> Submitting...</span>
                                     ) : 'Yes, Submit'}
                                 </button>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 )}
-            </AnimatePresence>
+
         </div>
     );
 };

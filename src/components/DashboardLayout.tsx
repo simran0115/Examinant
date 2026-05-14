@@ -134,11 +134,12 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
     };
 
     const studentLinks = [
-        { icon: <LayoutDashboard size={20} />, label: 'Overview', path: '/dashboard' },
+        { icon: <LayoutDashboard size={20} />, label: 'Overview', path: '/dashboard', end: true },
         { icon: <BookOpen size={20} />, label: 'My Tests', path: '/dashboard/tests' },
+        { icon: <FileText size={20} />, label: 'PYQs', path: '/dashboard/pyqs' },
+        { icon: <FolderTree size={20} />, label: 'Resources', path: '/dashboard/resources' },
         { icon: <Award size={20} />, label: 'Test Results', path: '/dashboard/results' },
-        { icon: <FileText size={20} />, label: 'Buy Series', path: '/dashboard/market' },
-        // { icon: <BookOpen size={20} />, label: 'Resources', path: '/dashboard/resources' },
+        { icon: <ListChecks size={20} />, label: 'Marketplace', path: '/dashboard/market' },
         { icon: <TrendingUp size={20} />, label: 'Analytics', path: '/dashboard/analytics' },
     ];
 
@@ -210,18 +211,19 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
                         <NavLink
                             key={link.path}
                             to={link.path}
+                            end={link.end}
                             onClick={() => setIsSidebarOpen(false)}
                             className={({ isActive }) => `
-                                flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-sm font-medium
+                                flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm font-medium
                                 ${isActive
-                                    ? 'bg-slate-200/50 text-teal-600'
+                                    ? 'bg-teal-50 text-teal-700 shadow-sm'
                                     : `text-slate-600 hover:bg-slate-100 hover:text-slate-900`
                                 }
                             `}
                         >
                             {({ isActive }) => (
                                 <>
-                                    <span className={`transition-transform duration-200`}>
+                                    <span className={`transition-transform duration-200 ${isActive ? 'text-teal-600' : 'text-slate-400'}`}>
                                         {link.icon}
                                     </span>
                                     <span>{link.label}</span>

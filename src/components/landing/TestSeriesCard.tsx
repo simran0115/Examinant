@@ -1,6 +1,5 @@
-import { CheckCircle, ArrowRight, Zap, ScrollText, Award, Sparkles, Users } from 'lucide-react';
-import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { Sparkles, ScrollText, Users, CheckCircle, Award, Zap, ArrowRight } from 'lucide-react';
 
 interface TestSeriesProps {
     title: string;
@@ -86,10 +85,8 @@ const TestSeriesCard = ({
     const renderedFeatures = (features.length > 0 ? features : defaultFeatures).slice(0, 3);
 
     return (
-        <motion.div 
-            whileHover={{ y: -12, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="group relative h-full flex flex-col bg-white rounded-[2.5rem] border border-slate-200 hover:border-slate-300 overflow-hidden transition-all duration-300"
+        <div 
+            className="group relative h-full flex flex-col bg-white rounded-md border border-slate-200 hover:border-teal-500 transition-all duration-300"
         >
             {/* Top Pattern Overlay */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-transparent to-slate-100/50 rounded-bl-[100px] pointer-events-none" />
@@ -98,22 +95,21 @@ const TestSeriesCard = ({
             <div className="p-7 md:p-8 flex-1 flex flex-col relative z-10">
                 {/* Header: Category & Badge */}
                 <div className="flex justify-between items-center mb-8">
-                    <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full border ${currentTheme.bg} ${currentTheme.border} ${currentTheme.text} text-[10px] font-black uppercase tracking-widest shadow-sm`}>
-                        <div className={`w-1.5 h-1.5 rounded-full ${currentTheme.text.replace('text', 'bg')} animate-pulse`} />
+                    <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full border ${currentTheme.bg} ${currentTheme.border} ${currentTheme.text} text-xs font-bold uppercase tracking-widest`}>
                         {examCategory || 'Academic'}
                     </div>
                     
                     {isNew && (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white rounded-md text-[10px] font-bold uppercase tracking-widest">
                             <Sparkles size={12} className="text-teal-400" />
-                            <span>New Launch</span>
+                            <span>New</span>
                         </div>
                     )}
                 </div>
 
                 {/* Title & Description */}
                 <div className="mb-8">
-                    <h3 className="text-2xl md:text-3xl font-black text-slate-900 leading-[1.1] tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-slate-900 group-hover:to-slate-600 transition-all duration-300 min-h-[3.3rem]">
+                    <h3 className="text-2xl font-bold text-slate-900 leading-tight tracking-tight min-h-[3.3rem]">
                         {title}
                     </h3>
                     <p className="mt-4 text-sm font-medium text-slate-500 leading-relaxed line-clamp-2 italic">
@@ -123,25 +119,25 @@ const TestSeriesCard = ({
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 md:gap-4 mb-8">
-                    <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 group-hover:bg-white group-hover:border-slate-200 transition-all duration-300">
+                    <div className="bg-slate-50 rounded-md p-4 border border-slate-100 transition-all duration-300">
                         <div className="flex items-center gap-3">
-                            <div className={`p-2 rounded-xl ${currentTheme.iconBg} ${currentTheme.text}`}>
+                            <div className={`p-2 rounded-md ${currentTheme.iconBg} ${currentTheme.text}`}>
                                 <ScrollText size={20} />
                             </div>
                             <div>
-                                <div className="text-base font-black text-slate-900">{testCount || 15}+</div>
-                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-tight">Full Tests</div>
+                                <div className="text-lg font-bold text-slate-900">{testCount || 15}+</div>
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-tight">Full Tests</div>
                             </div>
                         </div>
                     </div>
-                    <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 group-hover:bg-white group-hover:border-slate-200 transition-all duration-300">
+                    <div className="bg-slate-50 rounded-md p-4 border border-slate-100 transition-all duration-300">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-xl bg-teal-50 text-teal-600">
+                            <div className="p-2 rounded-md bg-teal-50 text-teal-600">
                                 <Users size={20} />
                             </div>
                             <div>
-                                <div className="text-base font-black text-slate-900">12k+</div>
-                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-tight">Enrolled</div>
+                                <div className="text-lg font-bold text-slate-900">12k+</div>
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-tight">Enrolled</div>
                             </div>
                         </div>
                     </div>
@@ -161,23 +157,22 @@ const TestSeriesCard = ({
 
                 <div className="mt-auto pt-6 md:pt-8 border-t border-slate-100 flex items-center justify-between">
                     <div className="min-w-0">
-                        <div className="flex items-center gap-2 mb-1 md:mb-1.5">
-                            <Award size={12} className="text-teal-500 shrink-0 md:w-3.5 md:h-3.5" />
-                            <span className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] truncate">Verified Content</span>
+                        <div className="flex items-center gap-2 mb-1">
+                            <Award size={12} className="text-teal-500 shrink-0" />
+                            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest truncate">Verified Content</span>
                         </div>
-                        <div className="flex items-baseline gap-2 md:gap-3">
-                            <span className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter whitespace-nowrap">
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-3xl font-bold text-slate-900 tracking-tight whitespace-nowrap">
                                 {price === 'Free' || price === '0' || !price ? 'FREE' : `₹${price}`}
                             </span>
                             {price && price !== 'Free' && price !== '0' && (
-                                <span className="text-slate-300 line-through text-xs md:text-sm font-bold">₹{originalPrice}</span>
+                                <span className="text-slate-300 line-through text-sm font-bold">₹{originalPrice}</span>
                             )}
                         </div>
                     </div>
                     
-                    <div className={`shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-2xl md:rounded-3xl ${currentTheme.bg} flex items-center justify-center ${currentTheme.text} group-hover:scale-110 transition-transform duration-500`}>
-                        <Zap size={24} fill="currentColor" className="opacity-20 md:w-7 md:h-7" />
-                        <Zap size={24} className="absolute md:w-7 md:h-7" />
+                    <div className={`shrink-0 w-12 h-12 rounded-md ${currentTheme.bg} flex items-center justify-center ${currentTheme.text}`}>
+                        <Zap size={24} className="md:w-7 md:h-7" />
                     </div>
                 </div>
             </div>
@@ -191,21 +186,14 @@ const TestSeriesCard = ({
                 ) : (
                     <button
                         onClick={onExplore}
-                        className="w-full relative group/btn h-16 rounded-[1.5rem] bg-slate-900 hover:bg-teal-600 active:scale-[0.98] transition-all duration-500 flex items-center justify-center gap-3 overflow-hidden"
+                        className="w-full h-12 rounded-md bg-slate-900 hover:bg-teal-600 text-white font-bold text-sm transition-all flex items-center justify-center gap-2"
                     >
-                        {/* Shimmer Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
-                        
-                        <span className="relative z-10 text-white font-black text-xs uppercase tracking-[0.2em] flex items-center gap-2">
-                            Access Series
-                            <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform duration-300" />
-                        </span>
-                        
-                        <div className={`absolute inset-0 bg-gradient-to-r ${currentTheme.gradient} opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500`} />
+                        Access Series
+                        <ArrowRight size={18} />
                     </button>
                 )}
             </div>
-        </motion.div>
+        </div>
     );
 };
 

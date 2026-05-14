@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Loader2, ChevronDown, ChevronUp, PlayCircle, BookOpen, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -79,24 +78,21 @@ const SeriesCard = ({ purchase, attemptsMap }: { purchase: PurchasedTest, attemp
     }, [seriesId, isExpanded]);
 
     return (
-        <motion.div
-            layout
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+        <div
+            className="bg-white rounded-md border border-slate-200 overflow-hidden shadow-sm"
         >
             <div
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="p-5 flex items-center justify-between cursor-pointer bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                className="p-5 flex items-center justify-between cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors"
             >
                 <div className="flex items-center gap-4">
-                    <div className="p-3 bg-teal-100 text-teal-600 rounded-xl">
+                    <div className="p-3 bg-teal-100 text-teal-600 rounded-md">
                         <BookOpen size={24} />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h3 className="text-lg font-bold text-slate-800">{title}</h3>
-                            <span className="bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            <span className="bg-slate-200 text-slate-600 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                                 {purchase.category || 'Series'}
                             </span>
                         </div>
@@ -110,95 +106,88 @@ const SeriesCard = ({ purchase, attemptsMap }: { purchase: PurchasedTest, attemp
                 </button>
             </div>
 
-            <AnimatePresence>
-                {isExpanded && (
-                    <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-slate-100"
-                    >
-                        {loadingTests ? (
-                            <div className="p-8 flex justify-center">
-                                <Loader2 className="animate-spin text-teal-500" size={24} />
-                            </div>
-                        ) : tests.length === 0 ? (
-                            <div className="p-8 text-center text-slate-500 text-sm">
-                                No tests currently available in this series.
-                            </div>
-                        ) : (
-                            <div className="divide-y divide-slate-100">
-                                {tests.map((test) => {
-                                    const testAttempts = attemptsMap[test.id] || [];
-                                    const hasAttempted = testAttempts.length > 0;
+            {isExpanded && (
+                <div className="border-t border-slate-100">
+                    {loadingTests ? (
+                        <div className="p-8 flex justify-center">
+                            <Loader2 className="animate-spin text-teal-500" size={24} />
+                        </div>
+                    ) : tests.length === 0 ? (
+                        <div className="p-8 text-center text-slate-500 text-sm">
+                            No tests currently available in this series.
+                        </div>
+                    ) : (
+                        <div className="divide-y divide-slate-100">
+                            {tests.map((test) => {
+                                const testAttempts = attemptsMap[test.id] || [];
+                                const hasAttempted = testAttempts.length > 0;
 
-                                    return (
-                                        <div key={test.id} className="p-4 flex flex-col md:flex-row md:items-center justify-between hover:bg-slate-50 transition-colors pl-4 md:pl-20 gap-4">
-                                            <div className="flex items-center gap-4">
-                                                <div className={`p-2 rounded-lg ${hasAttempted ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-500'}`}>
-                                                    {hasAttempted ? <Award size={18} /> : <Clock size={18} />}
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-800">{test.name}</h4>
-                                                    <div className="text-xs text-slate-500 flex flex-wrap items-center gap-2 mt-1">
-                                                        <span>{test.settings?.duration || 180} mins</span>
-                                                        <span>•</span>
-                                                        <span>{test.questionIds?.length || 0} Questions</span>
+                                return (
+                                    <div key={test.id} className="p-4 flex flex-col md:flex-row md:items-center justify-between hover:bg-slate-50 transition-colors pl-4 md:pl-20 gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className={`p-2 rounded-md ${hasAttempted ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-500'}`}>
+                                                {hasAttempted ? <Award size={18} /> : <Clock size={18} />}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold text-slate-800">{test.name}</h4>
+                                                <div className="text-xs text-slate-500 flex flex-wrap items-center gap-2 mt-1">
+                                                    <span>{test.settings?.duration || 180} mins</span>
+                                                    <span>•</span>
+                                                    <span>{test.questionIds?.length || 0} Questions</span>
 
-                                                        {hasAttempted && (
-                                                            <>
-                                                                <span className="hidden md:inline">•</span>
-                                                                {Math.max(...testAttempts.map(a => a.score)) > 0 ? (
-                                                                    <span className="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">
-                                                                        Best Score: {Math.max(...testAttempts.map(a => a.score))}
-                                                                    </span>
-                                                                ) : (
-                                                                    <span className="text-slate-500 font-bold bg-slate-100 px-2 py-0.5 rounded-full">
-                                                                        Attempted
-                                                                    </span>
-                                                                )}
-                                                            </>
-                                                        )}
-                                                    </div>
+                                                    {hasAttempted && (
+                                                        <>
+                                                            <span className="hidden md:inline">•</span>
+                                                            {Math.max(...testAttempts.map(a => a.score)) > 0 ? (
+                                                                <span className="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full">
+                                                                    Best Score: {Math.max(...testAttempts.map(a => a.score))}
+                                                                </span>
+                                                            ) : (
+                                                                <span className="text-slate-500 font-bold bg-slate-100 px-2 py-0.5 rounded-full">
+                                                                    Attempted
+                                                                </span>
+                                                            )}
+                                                        </>
+                                                    )}
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div className="flex items-center gap-2 self-end md:self-auto flex-wrap justify-end">
+                                        <div className="flex items-center gap-2 self-end md:self-auto flex-wrap justify-end">
 
-                                                {hasAttempted && (
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            navigate('/dashboard/results');
-                                                        }}
-                                                        className="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-100 transition-colors"
-                                                    >
-                                                        View Result
-                                                    </button>
-                                                )}
+                                            {hasAttempted && (
                                                 <button
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        navigate(`/dashboard/attempt/${test.id}`);
+                                                        navigate('/dashboard/results');
                                                     }}
-                                                    className={`px-4 py-2 text-white text-sm font-bold rounded-lg transition-colors flex items-center gap-2 shadow-sm ${hasAttempted
-                                                        ? 'bg-slate-800 hover:bg-slate-900 shadow-slate-500/20'
-                                                        : 'bg-teal-600 hover:bg-teal-700 shadow-teal-500/20'
-                                                        }`}
+                                                    className="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-bold rounded-md hover:bg-slate-100 transition-colors"
                                                 >
-                                                    <PlayCircle size={16} />
-                                                    {hasAttempted ? 'Re-Attempt' : 'Start Test'}
+                                                    View Result
                                                 </button>
-                                            </div>
+                                            )}
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    navigate(`/dashboard/attempt/${test.id}`);
+                                                }}
+                                                className={`px-4 py-2 text-white text-sm font-bold rounded-md transition-colors flex items-center gap-2 ${hasAttempted
+                                                    ? 'bg-slate-800 hover:bg-slate-900'
+                                                    : 'bg-teal-600 hover:bg-teal-700'
+                                                    }`}
+                                            >
+                                                <PlayCircle size={16} />
+                                                {hasAttempted ? 'Re-Attempt' : 'Start Test'}
+                                            </button>
                                         </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
     );
 };
 
@@ -278,12 +267,7 @@ const StudentTestsPage = () => {
     };
 
     return (
-        <motion.div
-            className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
+        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-800">My Test Series</h1>
@@ -291,7 +275,7 @@ const StudentTestsPage = () => {
                 </div>
                 <button
                     onClick={() => navigate('/dashboard/market')}
-                    className="px-4 py-2 bg-slate-900 text-white text-sm font-bold rounded-xl hover:bg-slate-800 transition-colors"
+                    className="px-4 py-2 bg-slate-900 text-white text-sm font-bold rounded-md hover:bg-slate-800 transition-colors"
                 >
                     Browse Market
                 </button>
@@ -304,7 +288,7 @@ const StudentTestsPage = () => {
                         <Loader2 className="animate-spin text-teal-600" size={30} />
                     </div>
                 ) : purchasedTests.length === 0 ? (
-                    <div className="text-center py-20 bg-slate-50 rounded-3xl border border-dashed border-slate-300">
+                    <div className="text-center py-20 bg-slate-50 rounded-md border border-dashed border-slate-300">
                         <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
                             <BookOpen size={30} />
                         </div>
@@ -314,7 +298,7 @@ const StudentTestsPage = () => {
                         </p>
                         <button
                             onClick={() => navigate('/dashboard/market')}
-                            className="bg-teal-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-teal-700 transition-colors shadow-lg shadow-teal-500/20"
+                            className="bg-teal-600 text-white px-6 py-3 rounded-md font-bold hover:bg-teal-700 transition-colors"
                         >
                             Explore Market
                         </button>
@@ -325,7 +309,7 @@ const StudentTestsPage = () => {
                     ))
                 )}
             </div>
-        </motion.div>
+        </div>
     );
 };
 

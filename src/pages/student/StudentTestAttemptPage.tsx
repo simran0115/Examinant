@@ -456,7 +456,7 @@ const StudentTestAttemptPage = () => {
     if (!testData || testData.questions.length === 0) {
         return (
             <div className="flex h-screen items-center justify-center bg-slate-50">
-                <div className="text-center p-6 bg-white rounded-3xl shadow-lg border border-slate-200">
+                <div className="text-center p-6 bg-white rounded-md shadow-sm border border-slate-200">
                     <h2 className="text-xl font-bold text-slate-900 mb-2">No questions available</h2>
                     <p className="text-slate-600">This test currently has no questions assigned. Please contact support or try another test.</p>
                 </div>
@@ -467,11 +467,9 @@ const StudentTestAttemptPage = () => {
     // Instructions Overlay
     if (showInstructions) {
         return (
-            <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="bg-white w-full max-w-3xl rounded-2xl shadow-xl overflow-hidden max-h-[90vh] overflow-y-auto"
+            <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+                <div
+                    className="bg-white w-full max-w-3xl rounded-md shadow-xl overflow-hidden max-h-[90vh] overflow-y-auto"
                 >
                     <div className="bg-linear-to-r from-teal-600 to-indigo-600 p-6 text-white">
                         <h2 className="text-2xl font-bold">{testData.title}</h2>
@@ -537,12 +535,12 @@ const StudentTestAttemptPage = () => {
 
                         <button
                             onClick={() => setShowInstructions(false)}
-                            className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-colors shadow-lg shadow-teal-500/20"
+                            className="w-full py-3 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 transition-colors"
                         >
                             I understand, Start Test
                         </button>
                     </div>
-                </motion.div>
+                </div>
             </div>
         );
     }
@@ -562,7 +560,7 @@ const StudentTestAttemptPage = () => {
                                     navigate('/dashboard/tests');
                                 }
                             }}
-                            className="p-2 hover:bg-slate-100 rounded-lg text-slate-500"
+                            className="p-2 hover:bg-slate-100 rounded-md text-slate-500"
                         >
                             <ArrowLeft size={20} />
                         </button>
@@ -573,7 +571,7 @@ const StudentTestAttemptPage = () => {
                     </div>
 
                     <div className="flex items-center gap-3 md:gap-6">
-                        <div className={`flex items-center gap-2 font-mono text-sm md:text-lg font-bold px-3 md:px-4 py-2 rounded-lg ${timeRemaining < 300 ? 'bg-red-50 text-red-600 animate-pulse' :
+                        <div className={`flex items-center gap-2 font-mono text-sm md:text-lg font-bold px-3 md:px-4 py-2 rounded-md ${timeRemaining < 300 ? 'bg-red-50 text-red-600' :
                             timeRemaining < 600 ? 'bg-teal-50 text-teal-600' :
                                 'bg-slate-100 text-slate-700'
                             }`}>
@@ -584,7 +582,7 @@ const StudentTestAttemptPage = () => {
                         <button
                             onClick={() => setShowSubmitConfirm(true)}
                             disabled={isSubmitting}
-                            className="flex items-center gap-2 px-4 md:px-6 py-2 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg shadow-green-500/20 text-sm md:text-base"
+                            className="flex items-center gap-2 px-4 md:px-6 py-2 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 transition-colors text-sm md:text-base"
                         >
                             <Save size={16} />
                             <span className="hidden md:inline">Submit</span>
@@ -602,8 +600,8 @@ const StudentTestAttemptPage = () => {
                                 const targetQuestionIndex = getFirstQuestionIndexForSubject(subject);
                                 if (targetQuestionIndex !== -1) goToQuestion(targetQuestionIndex);
                             }}
-                            className={`px-4 py-2 rounded-lg font-semibold whitespace-nowrap transition-colors ${activeSubject === subject
-                                ? 'bg-teal-600 text-white shadow-md'
+                            className={`px-4 py-2 rounded-md font-semibold whitespace-nowrap transition-colors ${activeSubject === subject
+                                ? 'bg-teal-600 text-white'
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                 }`}
                         >
@@ -616,19 +614,14 @@ const StudentTestAttemptPage = () => {
             <div className="flex-1 flex flex-col md:flex-row">
                 {/* Main Question Area */}
                 <main className="flex-1 p-4 md:p-6 overflow-y-auto">
-                    <AnimatePresence mode="wait">
-                        <motion.div
+                        <div
                             key={currentQuestionIndex}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8 max-w-4xl mx-auto"
+                            className="bg-white rounded-md border border-slate-200 shadow-sm p-6 md:p-8 max-w-4xl mx-auto"
                         >
                             {/* Question Header */}
                             <div className="flex justify-between items-start mb-6">
                                 <div className="flex items-center gap-3">
-                                    <span className="shrink-0 w-10 h-10 bg-linear-to-br from-teal-500 to-indigo-600 text-white font-bold rounded-xl flex items-center justify-center shadow-lg">
+                                    <span className="shrink-0 w-10 h-10 bg-slate-800 text-white font-bold rounded-md flex items-center justify-center">
                                         {currentQuestionIndex + 1}
                                     </span>
                                     <div>
@@ -657,8 +650,8 @@ const StudentTestAttemptPage = () => {
                                     {currentQuestion.options.map((option, oIdx) => (
                                         <label
                                             key={oIdx}
-                                            className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${answers[currentQuestionIndex] === oIdx
-                                                ? 'bg-teal-50 border-teal-500 shadow-md shadow-teal-500/20'
+                                            className={`flex items-start gap-3 p-4 rounded-md border-2 cursor-pointer transition-all ${answers[currentQuestionIndex] === oIdx
+                                                ? 'bg-teal-50 border-teal-500'
                                                 : 'border-slate-200 hover:bg-slate-50 hover:border-slate-300'
                                                 }`}
                                         >
@@ -697,7 +690,7 @@ const StudentTestAttemptPage = () => {
                                         type="text"
                                         value={answers[currentQuestionIndex] || ''}
                                         onChange={(e) => handleAnswer(e.target.value)}
-                                        className="w-full md:w-1/2 px-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-teal-500 text-lg font-mono"
+                                        className="w-full md:w-1/2 px-4 py-3 border border-slate-300 rounded-md focus:outline-none focus:border-teal-500 text-lg font-mono"
                                         placeholder="e.g., 9.8 or 100"
                                     />
                                     {currentQuestion.section === 'B' && sectionBCount >= 5 && !sectionBSelections[activeSubject].has(currentQuestionIndex) && (
@@ -712,8 +705,8 @@ const StudentTestAttemptPage = () => {
                             <div className="mt-8 flex flex-wrap gap-3">
                                 <button
                                     onClick={toggleMarkForReview}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${markedForReview.has(currentQuestionIndex)
-                                        ? 'bg-purple-100 text-purple-700 border-2 border-purple-500'
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-md font-semibold transition-colors ${markedForReview.has(currentQuestionIndex)
+                                        ? 'bg-purple-100 text-purple-700 border border-purple-500'
                                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                                         }`}
                                 >
@@ -723,20 +716,19 @@ const StudentTestAttemptPage = () => {
                                 <button
                                     onClick={clearResponse}
                                     disabled={answers[currentQuestionIndex] === undefined}
-                                    className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg font-semibold hover:bg-slate-200 transition-colors disabled:opacity-50"
+                                    className="px-4 py-2 bg-slate-100 text-slate-700 rounded-md font-semibold hover:bg-slate-200 transition-colors disabled:opacity-50"
                                 >
                                     Clear Response
                                 </button>
                             </div>
-                        </motion.div>
-                    </AnimatePresence>
+                        </div>
 
                     {/* Navigation Buttons */}
                     <div className="flex justify-between items-center mt-6 max-w-4xl mx-auto">
                         <button
                             onClick={previousQuestion}
                             disabled={currentQuestionIndex === 0}
-                            className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-md font-semibold hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <ChevronLeft size={20} />
                             Previous
@@ -744,7 +736,7 @@ const StudentTestAttemptPage = () => {
                         <button
                             onClick={saveAndNext}
                             disabled={currentQuestionIndex === testData.questions.length - 1}
-                            className="flex items-center gap-2 px-6 py-2 bg-teal-600 text-white rounded-xl font-semibold hover:bg-teal-700 shadow-lg shadow-teal-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center gap-2 px-6 py-2 bg-teal-600 text-white rounded-md font-semibold hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Save & Next
                             <ChevronRight size={20} />
@@ -758,7 +750,7 @@ const StudentTestAttemptPage = () => {
 
                     {/* Section B Counter */}
                     {testData.testPattern === 'JEE_MAINS' && (
-                        <div className="mb-4 p-3 bg-teal-50 border border-teal-200 rounded-lg">
+                        <div className="mb-4 p-3 bg-teal-50 border border-teal-200 rounded-md">
                             <p className="text-sm font-semibold text-teal-900">
                                 Section B ({activeSubject}): {sectionBSelections[activeSubject]?.size || 0}/5 selected
                             </p>

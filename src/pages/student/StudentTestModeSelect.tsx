@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Loader2, Monitor, FileText, Clock, HelpCircle, ArrowLeft, ChevronRight } from 'lucide-react';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -71,13 +70,8 @@ const StudentTestModeSelect = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 flex items-center justify-center p-4">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-                className="w-full max-w-2xl"
-            >
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+            <div className="w-full max-w-2xl">
                 {/* Back Button */}
                 <button
                     onClick={() => navigate(-1)}
@@ -87,7 +81,7 @@ const StudentTestModeSelect = () => {
                 </button>
 
                 {/* Test Info Card */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 mb-6 text-white">
+                <div className="bg-white/10 border border-white/20 rounded-md p-5 mb-6 text-white shadow-sm">
                     <h1 className="text-xl font-bold mb-3">{test.name}</h1>
                     <div className="flex items-center gap-6 text-sm text-slate-300">
                         <div className="flex items-center gap-2">
@@ -103,102 +97,94 @@ const StudentTestModeSelect = () => {
 
                 {/* Mode Selection Title */}
                 <div className="text-center mb-6">
-                    <h2 className="text-2xl font-extrabold text-white">Choose Test Mode</h2>
+                    <h2 className="text-2xl font-bold text-white">Choose Test Mode</h2>
                     <p className="text-slate-400 mt-1 text-sm">Select how you want to attempt this test</p>
                 </div>
 
                 {/* Mode Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     {/* Digital Mode */}
-                    <motion.button
-                        whileHover={hasDigital ? { scale: 1.02 } : {}}
-                        whileTap={hasDigital ? { scale: 0.98 } : {}}
+                    <button
                         onClick={() => hasDigital ? setSelected('digital') : undefined}
-                        className={`relative flex flex-col items-start p-6 rounded-2xl border-2 text-left transition-all ${
+                        className={`relative flex flex-col items-start p-6 rounded-md border text-left transition-all ${
                             !hasDigital
                                 ? 'border-white/10 bg-white/5 opacity-50 cursor-not-allowed'
                                 : selected === 'digital'
-                                ? 'border-teal-400 bg-teal-500/20 shadow-xl shadow-teal-500/20'
-                                : 'border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40'
+                                ? 'border-teal-500 bg-teal-500/10 shadow-sm'
+                                : 'border-white/20 bg-white/5 hover:bg-white/10'
                         }`}
                     >
                         {selected === 'digital' && (
-                            <div className="absolute top-4 right-4 w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
-                                <span className="text-white text-xs font-bold">✓</span>
+                            <div className="absolute top-4 right-4 w-5 h-5 bg-teal-500 rounded-full flex items-center justify-center">
+                                <span className="text-white text-[10px] font-bold">✓</span>
                             </div>
                         )}
                         {!hasDigital && (
-                            <div className="absolute top-4 right-4 text-xs bg-white/10 text-slate-400 px-2 py-1 rounded-full font-medium">
-                                Not Available
+                            <div className="absolute top-4 right-4 text-[10px] bg-white/10 text-slate-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                                Unavailable
                             </div>
                         )}
-                        <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${hasDigital ? 'bg-teal-500/20 border border-teal-400/30' : 'bg-white/10 border border-white/10'}`}>
-                            <Monitor size={28} className={hasDigital ? 'text-teal-400' : 'text-slate-500'} />
+                        <div className={`w-12 h-12 rounded-md flex items-center justify-center mb-4 ${hasDigital ? 'bg-teal-500/20 border border-teal-500/30' : 'bg-white/10 border border-white/10'}`}>
+                            <Monitor size={24} className={hasDigital ? 'text-teal-400' : 'text-slate-500'} />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">Digital Mode</h3>
-                        <p className="text-slate-400 text-sm leading-relaxed">
-                            Standard online test with question navigation panel, mark for review, and instant feedback. Just like NTA exam portal.
+                        <p className="text-slate-400 text-xs leading-relaxed">
+                            Standard online test with navigation panel and mark for review. Matches professional exam portals.
                         </p>
                         <div className="mt-4 flex flex-wrap gap-2">
-                            {['Question Panel', 'Instant Submit', 'Mark for Review'].map(tag => (
-                                <span key={tag} className={`text-xs px-2 py-1 rounded-full font-medium ${hasDigital ? 'bg-teal-500/20 text-teal-300' : 'bg-white/10 text-slate-500'}`}>
+                            {['Question Panel', 'Mark for Review'].map(tag => (
+                                <span key={tag} className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider ${hasDigital ? 'bg-teal-500/20 text-teal-300' : 'bg-white/10 text-slate-500'}`}>
                                     {tag}
                                 </span>
                             ))}
                         </div>
-                    </motion.button>
+                    </button>
 
                     {/* OMR Mode */}
-                    <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                    <button
                         onClick={() => hasOMR ? setSelected('omr') : undefined}
-                        className={`relative flex flex-col items-start p-6 rounded-2xl border-2 text-left transition-all ${
+                        className={`relative flex flex-col items-start p-6 rounded-md border text-left transition-all ${
                             !hasOMR
                                 ? 'border-white/10 bg-white/5 opacity-50 cursor-not-allowed'
                                 : selected === 'omr'
-                                ? 'border-teal-400 bg-teal-500/20 shadow-xl shadow-teal-500/20'
-                                : 'border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40'
+                                ? 'border-teal-500 bg-teal-500/10 shadow-sm'
+                                : 'border-white/20 bg-white/5 hover:bg-white/10'
                         }`}
                     >
                         {selected === 'omr' && (
-                            <div className="absolute top-4 right-4 w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
-                                <span className="text-white text-xs font-bold">✓</span>
+                            <div className="absolute top-4 right-4 w-5 h-5 bg-teal-500 rounded-full flex items-center justify-center">
+                                <span className="text-white text-[10px] font-bold">✓</span>
                             </div>
                         )}
                         {!hasOMR && (
-                            <div className="absolute top-4 right-4 text-xs bg-white/10 text-slate-400 px-2 py-1 rounded-full font-medium">
-                                Not Available
+                            <div className="absolute top-4 right-4 text-[10px] bg-white/10 text-slate-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                                Unavailable
                             </div>
                         )}
-                        <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${hasOMR ? 'bg-teal-500/20 border border-teal-400/30' : 'bg-white/10 border border-white/10'}`}>
-                            <FileText size={28} className={hasOMR ? 'text-teal-400' : 'text-slate-500'} />
+                        <div className={`w-12 h-12 rounded-md flex items-center justify-center mb-4 ${hasOMR ? 'bg-teal-500/20 border border-teal-500/30' : 'bg-white/10 border border-white/10'}`}>
+                            <FileText size={24} className={hasOMR ? 'text-teal-400' : 'text-slate-500'} />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">OMR Mode</h3>
-                        <p className="text-slate-400 text-sm leading-relaxed">
-                            Bubble sheet simulation — fill circles like a real paper exam. Practice with pen-paper exam feel on screen.
+                        <p className="text-slate-400 text-xs leading-relaxed">
+                            Bubble sheet simulation. Practice with pen-paper feel on screen. Matches offline exam patterns.
                         </p>
                         <div className="mt-4 flex flex-wrap gap-2">
-                            {['Bubble Sheet', 'Paper Feel', 'Answer Key'].map(tag => (
-                                <span key={tag} className={`text-xs px-2 py-1 rounded-full font-medium ${hasOMR ? 'bg-teal-500/20 text-teal-300' : 'bg-white/10 text-slate-500'}`}>
+                            {['Bubble Sheet', 'Paper Feel'].map(tag => (
+                                <span key={tag} className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider ${hasOMR ? 'bg-teal-500/20 text-teal-300' : 'bg-white/10 text-slate-500'}`}>
                                     {tag}
                                 </span>
                             ))}
                         </div>
-                    </motion.button>
+                    </button>
                 </div>
 
                 {/* Start Button */}
-                <motion.button
-                    whileHover={selected ? { scale: 1.02 } : {}}
-                    whileTap={selected ? { scale: 0.98 } : {}}
+                <button
                     onClick={handleStart}
                     disabled={!selected}
-                    className={`w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all ${
+                    className={`w-full py-4 rounded-md font-bold text-lg flex items-center justify-center gap-3 transition-all ${
                         selected
-                            ? selected === 'digital'
-                                ? 'bg-teal-600 hover:bg-teal-700 text-white shadow-2xl shadow-teal-500/30'
-                                : 'bg-teal-500 hover:bg-teal-600 text-white shadow-2xl shadow-teal-500/30'
+                            ? 'bg-teal-600 hover:bg-teal-700 text-white shadow-sm'
                             : 'bg-white/10 text-slate-500 cursor-not-allowed'
                     }`}
                 >
@@ -206,8 +192,8 @@ const StudentTestModeSelect = () => {
                         ? `Start ${selected === 'digital' ? 'Digital' : 'OMR'} Test`
                         : 'Select a mode to continue'}
                     {selected && <ChevronRight size={22} />}
-                </motion.button>
-            </motion.div>
+                </button>
+            </div>
         </div>
     );
 };

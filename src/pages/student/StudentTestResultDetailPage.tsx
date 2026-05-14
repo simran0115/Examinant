@@ -229,7 +229,7 @@ const StudentTestResultDetailPage = () => {
                     </button>
                     <button
                         onClick={() => navigate('/dashboard/results')}
-                        className="px-6 py-2 bg-slate-100 text-slate-700 rounded-lg font-bold hover:bg-slate-200 transition-colors"
+                        className="px-6 py-2 bg-slate-100 text-slate-700 rounded-md font-bold hover:bg-slate-200 transition-colors"
                     >
                         Back to Results
                     </button>
@@ -250,7 +250,7 @@ const StudentTestResultDetailPage = () => {
                     <p className="text-slate-500 font-black uppercase tracking-[0.4em] text-[10px]">Official Performance Statement</p>
                 </div>
                 
-                <div className="mt-10 grid grid-cols-3 gap-8 text-center max-w-3xl mx-auto border border-slate-200 p-6 rounded-2xl bg-slate-50/50">
+                <div className="mt-10 grid grid-cols-3 gap-8 text-center max-w-3xl mx-auto border border-slate-200 p-6 rounded-md bg-slate-50/50">
                     <div>
                         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">CANDIDATE</p>
                         <p className="text-lg font-black text-slate-900 uppercase leading-none">{currentUser?.displayName || 'Student'}</p>
@@ -282,7 +282,7 @@ const StudentTestResultDetailPage = () => {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => navigate('/dashboard/results')}
-                        className="p-2 hover:bg-slate-100 rounded-lg text-slate-500 transition-colors"
+                        className="p-2 hover:bg-slate-100 rounded-md text-slate-500 transition-colors"
                     >
                         <ArrowLeft size={24} />
                     </button>
@@ -295,7 +295,7 @@ const StudentTestResultDetailPage = () => {
                 </div>
                 <button 
                     onClick={() => window.print()}
-                    className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
+                    className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-md font-bold hover:bg-slate-800 transition-all shadow-sm"
                 >
                     <Download size={18} />
                     Download Report
@@ -304,8 +304,8 @@ const StudentTestResultDetailPage = () => {
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div className="p-3 bg-teal-50 text-teal-600 rounded-xl">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div className="p-3 bg-teal-50 text-teal-600 rounded-md">
                         <Award size={24} />
                     </div>
                     <div>
@@ -316,8 +316,8 @@ const StudentTestResultDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div className="p-3 bg-green-50 text-green-600 rounded-xl">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div className="p-3 bg-green-50 text-green-600 rounded-md">
                         <CheckCircle size={24} />
                     </div>
                     <div>
@@ -328,8 +328,8 @@ const StudentTestResultDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div className="p-3 bg-red-50 text-red-600 rounded-xl">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div className="p-3 bg-red-50 text-red-600 rounded-md">
                         <XCircle size={24} />
                     </div>
                     <div>
@@ -340,8 +340,8 @@ const StudentTestResultDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div className="p-3 bg-purple-50 text-purple-600 rounded-xl">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div className="p-3 bg-purple-50 text-purple-600 rounded-md">
                         <Clock size={24} />
                     </div>
                     <div>
@@ -354,7 +354,7 @@ const StudentTestResultDetailPage = () => {
 
 
             {/* Digital Analysis Section (Standard List) */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
 
                 <div className="p-6 border-b border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
                     <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
@@ -362,7 +362,7 @@ const StudentTestResultDetailPage = () => {
                         Question Analysis
                     </h2>
 
-                    <div className="flex bg-slate-100 p-1 rounded-lg">
+                    <div className="flex bg-slate-100 p-1 rounded-md">
                         {(['all', 'correct', 'incorrect', 'unattempted'] as const).map(filter => (
                             <button
                                 key={filter}
@@ -430,7 +430,7 @@ const StudentTestResultDetailPage = () => {
                                                     const isSelected = userAnswer === optIdx;
                                                     const isCorrect = String(q.correctAnswer) === String(optIdx);
 
-                                                    let className = "p-3 rounded-lg border-2 text-sm flex items-center gap-3 ";
+                                                    let className = "p-3 rounded-md border text-sm flex items-center gap-3 ";
                                                     if (isCorrect) className += "border-green-500 bg-green-50 text-green-900";
                                                     else if (isSelected && !isCorrect) className += "border-red-500 bg-red-50 text-red-900";
                                                     else className += "border-slate-100 text-slate-600 opacity-70";
@@ -450,7 +450,7 @@ const StudentTestResultDetailPage = () => {
                                             </div>
                                         ) : (
                                             <div className="flex gap-4">
-                                                <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                                <div className="p-3 bg-slate-50 rounded-md border border-slate-200">
                                                     <span className="text-xs text-slate-500 block">Your Answer</span>
                                                     <span className={`font-mono font-bold ${status === 'correct' ? 'text-green-600' :
                                                         status === 'incorrect' ? 'text-red-600' : 'text-slate-400'
@@ -458,7 +458,7 @@ const StudentTestResultDetailPage = () => {
                                                         {userAnswer ?? 'N/A'}
                                                     </span>
                                                 </div>
-                                                <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                                                <div className="p-3 bg-green-50 rounded-md border border-green-200">
                                                     <span className="text-xs text-green-600 block">Correct Answer</span>
                                                     <span className="font-mono font-bold text-green-700">{q.correctAnswer}</span>
                                                 </div>
@@ -466,7 +466,7 @@ const StudentTestResultDetailPage = () => {
                                         )}
 
                                         {q.explanation && (
-                                            <div className="mt-4 p-4 bg-teal-50 rounded-xl border border-teal-100 text-teal-800 text-sm">
+                                            <div className="mt-4 p-4 bg-teal-50 rounded-md border border-teal-100 text-teal-800 text-sm">
                                                 <p className="font-bold mb-1 flex items-center gap-2">
                                                     <BookOpen size={16} /> Explanation:
                                                 </p>
@@ -541,7 +541,7 @@ const StudentTestResultDetailPage = () => {
                     .border-red-500 { border-color: #ef4444 !important; }
                     
                     /* Avoid page breaks inside cards */
-                    .bg-white.rounded-2xl {
+                    .bg-white.rounded-md {
                         page-break-inside: avoid;
                         break-inside: avoid;
                         margin-bottom: 20px !important;

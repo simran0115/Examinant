@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Clock, Calendar, Award, Target, BookOpen, TrendingUp, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
@@ -145,12 +144,7 @@ const StudentAnalyticsPage = () => {
     };
 
     return (
-        <motion.div
-            className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
+        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
             <div>
                 <h1 className="text-2xl font-bold text-slate-800">Performance Analytics</h1>
                 <p className="text-slate-500 mt-1">Track your progress and identify areas for improvement.</p>
@@ -158,9 +152,9 @@ const StudentAnalyticsPage = () => {
 
             {/* Key Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm">
                     <div className="flex items-center gap-4 mb-4">
-                        <div className="p-3 bg-teal-100 text-teal-600 rounded-xl">
+                        <div className="p-3 bg-teal-100 text-teal-600 rounded-md">
                             <BookOpen size={24} />
                         </div>
                         <div>
@@ -168,11 +162,11 @@ const StudentAnalyticsPage = () => {
                             <h3 className="text-2xl font-bold text-slate-800">{stats.totalTests}</h3>
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm">
                     <div className="flex items-center gap-4 mb-4">
-                        <div className="p-3 bg-purple-100 text-purple-600 rounded-xl">
+                        <div className="p-3 bg-purple-100 text-purple-600 rounded-md">
                             <Target size={24} />
                         </div>
                         <div>
@@ -180,11 +174,11 @@ const StudentAnalyticsPage = () => {
                             <h3 className="text-2xl font-bold text-slate-800">{stats.averageScore}%</h3>
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm">
                     <div className="flex items-center gap-4 mb-4">
-                        <div className="p-3 bg-teal-100 text-teal-600 rounded-xl">
+                        <div className="p-3 bg-teal-100 text-teal-600 rounded-md">
                             <Award size={24} />
                         </div>
                         <div>
@@ -192,11 +186,11 @@ const StudentAnalyticsPage = () => {
                             <h3 className="text-2xl font-bold text-slate-800">{stats.bestScore}%</h3>
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm">
                     <div className="flex items-center gap-4 mb-4">
-                        <div className="p-3 bg-green-100 text-green-600 rounded-xl">
+                        <div className="p-3 bg-green-100 text-green-600 rounded-md">
                             <Clock size={24} />
                         </div>
                         <div>
@@ -204,12 +198,12 @@ const StudentAnalyticsPage = () => {
                             <h3 className="text-2xl font-bold text-slate-800">{stats.timeEfficiency}</h3>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Score Chart */}
-                <motion.div variants={itemVariants} className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                <div className="lg:col-span-2 bg-white p-6 rounded-md border border-slate-200 shadow-sm flex flex-col">
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="font-bold text-slate-800 flex items-center gap-2">
                             <TrendingUp size={20} className="text-teal-600" />
@@ -262,10 +256,10 @@ const StudentAnalyticsPage = () => {
                             </div>
                         )}
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Subject Mastery Radar */}
-                <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+                <div className="bg-white p-6 rounded-md border border-slate-200 shadow-sm flex flex-col">
                     <h3 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
                         <Target size={20} className="text-teal-500" />
                         Subject Mastery
@@ -298,12 +292,12 @@ const StudentAnalyticsPage = () => {
                             </div>
                         )}
                     </div>
-                </motion.div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
                 {/* Recent Activity Table */}
-                <motion.div variants={itemVariants} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+                <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden flex flex-col">
                     <div className="p-6 border-b border-slate-100 flex justify-between items-center">
                         <h3 className="font-bold text-slate-800">Historical Performance</h3>
                         <button 
@@ -316,7 +310,7 @@ const StudentAnalyticsPage = () => {
                     <div className="overflow-x-auto">
                         <div className="min-w-[640px]">
                         <table className="w-full text-left">
-                            <thead className="bg-slate-50/50 text-slate-500 text-[10px] font-black uppercase tracking-widest">
+                            <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 text-xs font-semibold uppercase tracking-wider">
                                 <tr>
                                     <th className="px-6 py-4">Test Name</th>
                                     <th className="px-6 py-4">Date</th>
@@ -353,14 +347,14 @@ const StudentAnalyticsPage = () => {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
-                                                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${perc >= 60 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${perc >= 60 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                                         {perc >= 60 ? 'Success' : 'Need Work'}
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
-                                                    <div className="text-sm font-black text-slate-800">
+                                                    <div className="text-sm font-bold text-slate-800">
                                                         {perc}%
-                                                        <span className="block text-[10px] text-slate-400 font-bold mt-0.5">{attempt.score} / {(attempt as any).maxScore}</span>
+                                                        <span className="block text-xs text-slate-400 font-medium mt-0.5">{attempt.score} / {(attempt as any).maxScore}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
@@ -385,7 +379,7 @@ const StudentAnalyticsPage = () => {
                         </table>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
             <style>{`
                 @media print {
@@ -400,7 +394,7 @@ const StudentAnalyticsPage = () => {
                     .lg\\:col-span-2 { width: 100% !important; }
                 }
             `}</style>
-        </motion.div>
+        </div>
     );
 };
 

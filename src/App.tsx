@@ -29,7 +29,7 @@ const StudentTestsPage = React.lazy(() => import('./pages/student/StudentTestsPa
 const StudentMarketPage = React.lazy(() => import('./pages/student/StudentMarketPage'));
 const StudentAnalyticsPage = React.lazy(() => import('./pages/student/StudentAnalyticsPage'));
 const StudentTestAttemptPage = React.lazy(() => import('./pages/student/StudentTestAttemptPage'));
-// const StudentPYQsPage = React.lazy(() => import('./pages/student/StudentPYQsPage'));
+const StudentPYQsPage = React.lazy(() => import('./pages/student/StudentPYQsPage'));
 const StudentResourcesPage = React.lazy(() => import('./pages/student/StudentResourcesPage'));
 // const PYQsDiscoveryPage = React.lazy(() => import('./pages/PYQsDiscoveryPage'));
 // const PYQDetailsPage = React.lazy(() => import('./pages/PYQDetailsPage'));
@@ -126,7 +126,7 @@ function App() {
                   <Route path="/dashboard" element={<StudentDashboard />} />
                   <Route path="/dashboard/tests" element={<StudentTestsPage />} />
                   <Route path="/dashboard/market" element={<StudentMarketPage />} />
-                  {/* <Route path="/dashboard/pyqs" element={<StudentPYQsPage />} /> */}
+                  <Route path="/dashboard/pyqs" element={<StudentPYQsPage />} />
                   <Route path="/dashboard/resources" element={<StudentResourcesPage />} />
                   <Route path="/dashboard/analytics" element={<StudentAnalyticsPage />} />
                   <Route path="/dashboard/results" element={<StudentTestResultsPage />} />

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { FileText, Download, Lock, Loader2, Search, PenTool, PlayCircle } from 'lucide-react';
 import { db } from '../../firebase';
 import { collection, query, onSnapshot } from 'firebase/firestore';
@@ -106,23 +105,10 @@ const StudentPYQsPage = () => {
         return (titleMatch || categoryMatch || yearMatch) && purchaseMatch;
     });
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-    };
 
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: { y: 0, opacity: 1 }
-    };
 
     return (
-        <motion.div
-            className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
+        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-800">Previous Year Questions</h1>
@@ -131,8 +117,8 @@ const StudentPYQsPage = () => {
                 <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
                     <button
                         onClick={() => setFilterPurchased(!filterPurchased)}
-                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filterPurchased
-                            ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/25'
+                        className={`px-4 py-2 rounded-md text-sm font-semibold transition-all ${filterPurchased
+                            ? 'bg-teal-600 text-white'
                             : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}
                     >
                         {filterPurchased ? 'Showing Purchased' : 'Show All'}
@@ -144,7 +130,7 @@ const StudentPYQsPage = () => {
                             placeholder="Search PYQs..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
+                            className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-md focus:outline-none focus:border-teal-500"
                         />
                     </div>
                 </div>
@@ -161,14 +147,13 @@ const StudentPYQsPage = () => {
                         const isTest = pyq.type === 'test';
 
                         return (
-                            <motion.div
+                            <div
                                 key={pyq.id}
-                                variants={itemVariants}
                                 onClick={() => navigate(`/pyqs/${pyq.id}`)}
-                                className="cursor-pointer bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-lg transition-shadow flex flex-col"
+                                className="cursor-pointer bg-white rounded-md border border-slate-200 p-5 hover:border-teal-400 transition-all flex flex-col"
                             >
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className={`p-3 rounded-xl ${isUnlocked ? 'bg-green-100 text-green-600' : 'bg-teal-100 text-teal-600'}`}>
+                                    <div className={`p-3 rounded-md ${isUnlocked ? 'bg-green-100 text-green-600' : 'bg-teal-100 text-teal-600'}`}>
                                         {isTest ? <PenTool size={24} /> : <FileText size={24} />}
                                     </div>
                                     <span className="text-xs font-bold px-2 py-1 bg-slate-100 text-slate-600 rounded">{pyq.category}</span>
@@ -193,7 +178,7 @@ const StudentPYQsPage = () => {
                                                         navigate(path);
                                                     }
                                                 }}
-                                                className="px-4 py-2 bg-teal-600 text-white text-sm font-semibold rounded-lg hover:bg-teal-700 flex items-center gap-2"
+                                                className="px-4 py-2 bg-teal-600 text-white text-sm font-semibold rounded-md hover:bg-teal-700 flex items-center gap-2"
                                             >
                                                 <PlayCircle size={16} /> Attempt
                                             </button>
@@ -203,7 +188,7 @@ const StudentPYQsPage = () => {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 flex items-center gap-2"
+                                                className="px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-md hover:bg-slate-800 flex items-center gap-2"
                                             >
                                                 <Download size={16} /> Download
                                             </a>
@@ -215,19 +200,19 @@ const StudentPYQsPage = () => {
                                                 handleBuy(pyq);
                                             }}
                                             disabled={buyingId === pyq.id}
-                                            className="px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 flex items-center gap-2 disabled:opacity-70 shadow-md shadow-emerald-500/10"
+                                            className="px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-md hover:bg-emerald-700 flex items-center gap-2 disabled:opacity-70"
                                         >
                                             {buyingId === pyq.id ? <Loader2 className="animate-spin" size={16} /> : <Lock size={16} />}
                                             Access Now
                                         </button>
                                     )}
                                 </div>
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </div>
             )}
-        </motion.div>
+        </div>
     );
 };
 export default StudentPYQsPage;

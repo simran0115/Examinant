@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Clock, TrendingUp, Award, BarChart3, ArrowRight, BookOpen, Target, Zap } from 'lucide-react';
 import { db } from '../../firebase';
 import { collection, query, orderBy, limit, where, onSnapshot } from 'firebase/firestore';
@@ -172,10 +171,8 @@ const StudentTestResultsPage = () => {
 
             {/* Statistics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg"
+                <div
+                    className="bg-teal-600 rounded-md p-6 text-white shadow-sm"
                 >
                     <div className="flex items-center justify-between">
                         <div>
@@ -184,13 +181,10 @@ const StudentTestResultsPage = () => {
                         </div>
                         <BookOpen size={40} className="opacity-80" />
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-lg"
+                <div
+                    className="bg-green-600 rounded-md p-6 text-white shadow-sm"
                 >
                     <div className="flex items-center justify-between">
                         <div>
@@ -199,13 +193,10 @@ const StudentTestResultsPage = () => {
                         </div>
                         <TrendingUp size={40} className="opacity-80" />
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg"
+                <div
+                    className="bg-purple-600 rounded-md p-6 text-white shadow-sm"
                 >
                     <div className="flex items-center justify-between">
                         <div>
@@ -214,13 +205,10 @@ const StudentTestResultsPage = () => {
                         </div>
                         <Award size={40} className="opacity-80" />
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl p-6 text-white shadow-lg"
+                <div
+                    className="bg-teal-500 rounded-md p-6 text-white shadow-sm"
                 >
                     <div className="flex items-center justify-between">
                         <div>
@@ -229,11 +217,11 @@ const StudentTestResultsPage = () => {
                         </div>
                         <Clock size={40} className="opacity-80" />
                     </div>
-                </motion.div>
+                </div>
             </div>
 
             {/* Results Table */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                 <div className="p-6 border-b border-slate-200">
                     <h2 className="text-xl font-bold text-slate-800">Test History</h2>
                 </div>
@@ -245,7 +233,7 @@ const StudentTestResultsPage = () => {
                         <p className="text-slate-500 mb-6">Start your first test to see results here</p>
                         <button
                             onClick={() => navigate('/dashboard/market')}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 shadow-lg shadow-teal-500/20"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700"
                         >
                             <Target size={20} />
                             Browse Tests
@@ -321,27 +309,27 @@ const StudentTestResultsPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <button
                         onClick={() => navigate('/dashboard/analytics')}
-                        className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-2xl hover:shadow-lg transition-shadow group"
+                        className="p-6 bg-indigo-50 border border-indigo-200 rounded-md hover:bg-indigo-100 transition-colors group"
                     >
-                        <BarChart3 className="text-indigo-600 mb-3 group-hover:scale-110 transition-transform" size={32} />
+                        <BarChart3 className="text-indigo-600 mb-3" size={32} />
                         <h3 className="font-bold text-slate-800 mb-1">View Analytics</h3>
                         <p className="text-sm text-slate-600">Detailed performance insights</p>
                     </button>
 
                     <button
                         onClick={() => navigate('/dashboard/tests')}
-                        className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-2xl hover:shadow-lg transition-shadow group"
+                        className="p-6 bg-teal-50 border border-teal-200 rounded-md hover:bg-teal-100 transition-colors group"
                     >
-                        <Zap className="text-teal-600 mb-3 group-hover:scale-110 transition-transform" size={32} />
+                        <Zap className="text-teal-600 mb-3" size={32} />
                         <h3 className="font-bold text-slate-800 mb-1">Practice More</h3>
                         <p className="text-sm text-slate-600">Continue improving your skills</p>
                     </button>
 
                     <button
                         onClick={() => navigate('/dashboard')}
-                        className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl hover:shadow-lg transition-shadow group"
+                        className="p-6 bg-green-50 border border-green-200 rounded-md hover:bg-green-100 transition-colors group"
                     >
-                        <Target className="text-green-600 mb-3 group-hover:scale-110 transition-transform" size={32} />
+                        <Target className="text-green-600 mb-3" size={32} />
                         <h3 className="font-bold text-slate-800 mb-1">Dashboard</h3>
                         <p className="text-sm text-slate-600">View your study progress</p>
                     </button>
